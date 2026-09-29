@@ -22,8 +22,12 @@ El orden de llegada define nuestro mapa:
 | **CLOCK 7** | Bit 7 | Right | Hex: `0x80` |
 
 ---
+## 2. Pines del control NES
 
-## 2. Diagrama de Flujo de los Datos
+![Diagrama de los pines del control del Nes](imagen.png)
+
+
+## 3. Diagrama de Flujo de los Datos
 
 El siguiente diagrama muestra cómo se mueven los datos al salir del mando como pulsos individuales, hasta que se convierten en un comando.
 
@@ -52,7 +56,7 @@ flowchart TD
     end 
 ```
 
-## 3. Implementación en Software: Constantes de Enmascaramiento en C
+## 4. Implementación en Software: Constantes de Enmascaramiento en C
 
 Para aplicar el concepto de enmascaramiento en el código del juego, definimos constantes usando los valores hexadecimales de nuestro mapa.
 
