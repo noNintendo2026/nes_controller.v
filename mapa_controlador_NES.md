@@ -1,6 +1,6 @@
 # Lógica de Mapeo y Decodificación del Controlador NES
 
-Este documento detalla cómo se extrae la información de los botones del mando, cómo se agrupa en un vector de 8 bits y cómo el procesador filtra esa información para saber qué botón se presionó. Todo el proceso ocurre en tres etapas lógicas.
+Este documento detalla cómo se extrae la información de los botones del mando, cómo se agrupa en un vector de 8 bits y cómo el procesador filtra esa información para saber qué botón se presionó. 
 
 ---
 
