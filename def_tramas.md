@@ -55,7 +55,7 @@ Para integrar esta comunicación en un sistema con procesador (por ejemplo, RISC
 
 Cada botón del mando funciona como un interruptor conectado a tierra (0V). Cuando un botón no se presiona, una resistencia pull-up eleva la línea a +5V (1 lógico). Cuando se presiona, la línea cae a 0V (0 lógico). Esto significa que la trama viaja en el cable con lógica activa en bajo (Active-Low).
 
-Para simplificar el procesamiento en software y evitar que la CPU gaste ciclos invirtiendo los bits, el módulo RTL perip_nes.v de la FPGA incorpora una compuerta NOT por hardware. Así, los datos depositados en el registro CSR 0x450000 quedan en lógica activa en alto (Active-High), donde 1 representa un botón presionado[cite: 1].
+Para simplificar el procesamiento en software y evitar que la CPU gaste ciclos invirtiendo los bits, el módulo RTL perip_nes.v de la FPGA incorpora una compuerta NOT por hardware. Así, los datos depositados en el registro CSR 0x450000 quedan en lógica activa en alto (Active-High), donde 1 representa un botón presionado.
 
 ### Explicación del Diagrama de Flujo de la Señal
 Este diagrama demuestra la ruta física y lógica de la trama de datos desde que el usuario interactúa con el control hasta que la información llega al firmware del procesador.
@@ -84,18 +84,18 @@ flowchart LR
 ### Explicación de las Tablas de Polaridad
 Las siguientes dos tablas explican cómo se traducen los niveles de voltaje del cable a valores lógicos dentro del registro de memoria de la CPU, desglosando la transformación por etapas de hardware.
 
-| Estado del Botón | Voltaje Medido | Valor en Cable (Active-Low) | Valor en Registro CPU (Active-High)[cite: 1] |
+| Estado del Botón | Voltaje Medido | Valor en Cable (Active-Low) | Valor en Registro CPU (Active-High)  |
 | :--- | :--- | :--- | :--- |
-| Reposo (No Presionado) | +5.0 Volts | Bit binario 1 | Bit binario 0[cite: 1] |
-| Presionado (Oprimido) | 0.0 Volts (GND) | Bit binario 0 | Bit binario 1[cite: 1] |
+| Reposo (No Presionado) | +5.0 Volts | Bit binario 1 | Bit binario 0  |
+| Presionado (Oprimido) | 0.0 Volts (GND) | Bit binario 0 | Bit binario 1  |
 
 | Etapa del Sistema | Dominio de Trabajo | Tipo de Lógica | Representación de Datos |
 | :--- | :--- | :--- | :--- |
 | Contacto del Mando | Electrónico Físico | Circuito Eléctrico | Abierto (+5V) / Cerrado (0V) |
 | Salida CD4021B | Comunicación Serie | Active-Low | 1 = Reposo / 0 = Presionado |
 | Entrada GPIO FPGA | Interfaz Digital | Active-Low | 1 = Reposo / 0 = Presionado |
-| Bloque Verilog | Procesamiento RTL | Inversión NOT | ~shift_reg en asignación de bus[cite: 1] |
-| Registro Memoria | Bus CSR (0x450000) | Active-High | 1 = Presionado / 0 = Reposo[cite: 1] |
+| Bloque Verilog | Procesamiento RTL | Inversión NOT | ~shift_reg en asignación de bus  |
+| Registro Memoria | Bus CSR (0x450000) | Active-High | 1 = Presionado / 0 = Reposo  |
 
 ---
 
@@ -103,7 +103,7 @@ Las siguientes dos tablas explican cómo se traducen los niveles de voltaje del 
 
 Cuando el mando está conectado pero no se presiona ningún botón, las resistencias de elevación mantienen todas las entradas en alto. El mando envía la trama `11111111` (0xFF). 
 
-Al pasar por la compuerta NOT en la FPGA, esta trama se invierte a `00000000` (0x00)[cite: 1]. Esto permite al firmware evaluar simplemente si la lectura del registro es mayor que cero para determinar si hay alguna acción presente.
+Al pasar por la compuerta NOT en la FPGA, esta trama se invierte a `00000000` (0x00) . Esto permite al firmware evaluar simplemente si la lectura del registro es mayor que cero para determinar si hay alguna acción presente.
 
 ### Explicación del Diagrama de Estado de Reposo
 Este diagrama en Mermaid muestra el comportamiento del sistema según el estado de la trama. Explica cómo la trama cambia de una condición neutra (0x00) a una condición activa cuando el usuario interactúa con los botones.
@@ -132,7 +132,7 @@ stateDiagram-v2
 
 Si el mando es retirado del puerto, la línea nes_data queda flotando. La FPGA cuenta con una resistencia pull-up interna activada en la entrada GPIO para evitar ruido eléctrico. 
 
-Esta resistencia fuerza la línea a +5V, generando la misma trama `11111111` que un mando en reposo. Al invertirse en hardware, el procesador lee `0x00`[cite: 1]. De esta forma se evita que una desconexión genere entradas erráticas o falsos disparos en el sistema.
+Esta resistencia fuerza la línea a +5V, generando la misma trama `11111111` que un mando en reposo. Al invertirse en hardware, el procesador lee `0x00` . De esta forma se evita que una desconexión genere entradas erráticas o falsos disparos en el sistema.
 
 ### Explicación del Diagrama de Decisiones del Puerto
 Este flujo de decisiones ilustra cómo el circuito reacciona ante la presencia o ausencia del mando físico para formar la trama final recibida por la CPU.
@@ -166,7 +166,7 @@ Las siguientes tablas contienen vectores de prueba esenciales para verificar med
 
 #### Tabla 1: Vectores para Botones Individuales
 
-| Evento de Entrada | Línea Física (nes_data) | Registro CPU Binario (d_out)[cite: 1] | Lectura CPU Hex (0x450000)[cite: 1] | Bit Activo en Registro |
+| Evento de Entrada | Línea Física (nes_data) | Registro CPU Binario (d_out)  | Lectura CPU Hex (0x450000)  | Bit Activo en Registro |
 | :--- | :---: | :---: | :---: | :--- |
 | Estado de Reposo | 11111111 | 00000000 | 0x00 | Ningún bit activo |
 | Presión de Botón A | 11111110 | 00000001 | 0x01 | Bit 0 activo |
@@ -180,7 +180,7 @@ Las siguientes tablas contienen vectores de prueba esenciales para verificar med
 
 #### Tabla 2: Vectores para Combinaciones Múltiples y Diagonales
 
-| Combinación de Entrada | Línea Física (nes_data) | Registro CPU Binario (d_out)[cite: 1] | Lectura CPU Hex (0x450000)[cite: 1] | Máscaras de Bits Aplicadas |
+| Combinación de Entrada | Línea Física (nes_data) | Registro CPU Binario (d_out)  | Lectura CPU Hex (0x450000) | Máscaras de Bits Aplicadas |
 | :--- | :---: | :---: | :---: | :--- |
 | Botón A + Botón B | 11111100 | 00000011 | 0x03 | NES_BTN_A \| NES_BTN_B |
 | Botón A + Botón Start | 11110110 | 00001001 | 0x09 | NES_BTN_A \| NES_BTN_START |
@@ -194,7 +194,7 @@ Las siguientes tablas contienen vectores de prueba esenciales para verificar med
 
 #### Tabla 3: Matriz de Diagnóstico y Evaluación del Puerto
 
-| Estado de la Línea Física | Lectura Bruta (FPGA) | Lectura CPU (0x450000)[cite: 1] | Diagnóstico del Sistema | Acción Sugerida en Firmware |
+| Estado de la Línea Física | Lectura Bruta (FPGA) | Lectura CPU (0x450000)  | Diagnóstico del Sistema | Acción Sugerida en Firmware |
 | :--- | :---: | :---: | :--- | :--- |
 | Línea Flotante (Desconectado) | 11111111 | 0x00 | Mando no detectado | Mantener sistema en espera |
 | Reposo Normal Conectado | 11111111 | 0x00 | Mando en espera | Continuar bucle principal |
