@@ -43,7 +43,7 @@ flowchart TD
 
     subgraph FASE2 [FASE 2: SOFTWARE - CPU / SoC]
         direction TB
-        Rx[Recepción del Byte\nEj: 00001000]
+        Rx[Recepción del Byte]
         Mask{Enmascaramiento\nAplica filtro Hexadecimal}
         Accion([Decisión / Acción])
         
