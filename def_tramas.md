@@ -23,7 +23,7 @@ El propósito de la tabla es mostrar el orden en que se transmiten los bits por 
 | Bit 7 (MSB) | Cruceta Derecha (Right) | Dirección | Octavo bit transmitido en la línea física |
 
 ### Explicación del Diagrama de Secuencia Temporal
-Este diagrama en formato Mermaid ilustra el protocolo de tiempo necesario para extraer la trama de datos del mando. Explica el flujo paso a paso: la FPGA activa la señal Latch para tomar la foto de los botones, inhabilita el Latch y luego inicia un ciclo iterativo de 8 pulsos de reloj para recibir secuencialmente cada bit de la trama.
+Se muestra el protocolo de tiempo necesario para extraer la trama de datos del mando. Explica el flujo paso a paso: la FPGA activa la señal Latch para tomar la foto de los botones, inhabilita el Latch y luego inicia un ciclo iterativo de 7 pulsos de reloj para recibir secuencialmente cada bit de la trama.
 
 ```mermaid
 sequenceDiagram
