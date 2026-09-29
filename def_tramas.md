@@ -1,21 +1,19 @@
 # Definición de Tramas de Datos
+## ¿Qué es una trama de datos?
+Unidad de información digital estructurada que se transmite a través de un canal físico siguiendo un orden temporal estricto. En el mando de la consola NES, la trama tiene un tamaño fijo de 8 bits (1 Byte), cada uno de los bits representa el estado de un botón específico (cuatro de la cruceta, Select, Start, A y B).
 
-Para comprender el funcionamiento de la comunicación entre el controlador de NES y un sistema digital como una FPGA o un microcontrolador, es imprescindible definir qué es una trama de datos y cuál es su función dentro de un protocolo de comunicación serial.
-
-Una trama de datos es una unidad de información digital estructurada que se transmite a través de un canal físico siguiendo un orden temporal estricto. En el mando de la consola NES, la trama tiene un tamaño fijo de 8 bits (1 Byte), donde cada uno de los bits representa el estado de un botón específico (cuatro de la cruceta direccional y cuatro de acción).
-
-El circuito integrado del mando (un registro de desplazamiento CD4021B) recibe en paralelo el estado de los 8 botones cuando la FPGA envía un pulso de captura llamado Latch. Posteriormente, el mando transmite dicho estado bit por bit de manera serial a través de la línea nes_data, sincronizado por los pulsos de reloj enviados desde la FPGA por la línea nes_clk.
+El circuito integrado del mando (un registro de desplazamiento CD4021B) recibe en paralelo el estado de los 8 botones cuando la FPGA envía el pulso de captura Latch. Luego,, el mando transmite dicho estado bit por bit de manera serial a través de Data, sincronizado por los pulsos de reloj enviados desde la FPGA por la línea nes_clk.
 
 ---
 
 ## Estructura y Mapeo del Byte de Datos
 
 ### Explicación del Mapeo de Bits
-Esta sección define la geografía exacta del byte que compone la trama. El propósito de la tabla es mostrar el orden en que se transmiten los bits por la línea física, comenzando con el Bit 0 (LSB) hasta finalizar con el Bit 7 (MSB).
+El propósito de la tabla es mostrar el orden en que se transmiten los bits por la línea física, comenzando con el Bit 0 hasta finalizar con el Bit 7 (MSB).
 
 | Posición de Bit | Botón Asociado | Función del Botón | Orden de Transmisión Serial |
 | :--- | :--- | :--- | :--- |
-| Bit 0 (LSB) | Botón A | Acción Principal | Primer bit transmitido en la línea física |
+| Bit 0 | Botón A | Acción Principal | Primer bit transmitido en la línea física |
 | Bit 1 | Botón B | Acción Secundaria | Segundo bit transmitido en la línea física |
 | Bit 2 | Botón Select | Navegación y Menú | Tercer bit transmitido en la línea física |
 | Bit 3 | Botón Start | Inicio y Pausa | Cuarto bit transmitido en la línea física |
