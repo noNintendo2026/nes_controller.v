@@ -24,7 +24,7 @@ El orden de llegada define nuestro mapa:
 ---
 ## 2. Pines del control NES
 
-![Diagrama de los pines del control del Nes](imagen.png)
+![Diagrama de los pines del control del Nes](image.png)
 
 
 ## 3. Diagrama de Flujo de los Datos
