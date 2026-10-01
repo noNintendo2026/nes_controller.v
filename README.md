@@ -14,6 +14,10 @@ Sin embargo, el módulo maneja lógica 'inversa': Cuando está oprimido un botó
 
 ![Ejemplo Protocolo](img/protocolo_coms_ej.png)
 
+## Pines del control NES
+
+![Diagrama de los pines del control del Nes](image.png)
+
 ### Especificaciones del Protocolo de Comunicaciones 
 * El protocolo opera mediante comunicación en serie y síncrona unidireccional
 * La FPGA controla las líneas LATCH y CLOCK, y recibe DATA
