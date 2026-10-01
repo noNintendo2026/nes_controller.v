@@ -42,5 +42,5 @@ Sin embargo, el módulo maneja lógica 'inversa': Cuando está oprimido un botó
 | `0x450008` | `0x08` | `NES_STATUS_REG` | Lectura | Estado del módulo (1 = Lectura completada, 0 = Bus ocupado). |
 | `0x45000C` | `0x0C` | `NES_CLKDIV_REG` | Lectura / Escritura | Divisor de reloj para ajustar los pulsos de CLOCK y LATCH. |
 
-##Funcionamiento Interno del NES
-![Diagrama de Flujo](<img/Diagrama de Flujo-Controlador NES.drawio(1).png>)
+## Funcionamiento Interno del NES
+![Diagrama de Flujo](<img/Diagrama de Flujo-Controlador NES.drawio(2).png>)
