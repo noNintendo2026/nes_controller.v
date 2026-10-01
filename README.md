@@ -1,5 +1,4 @@
 # nes_controller.v
-Repositorio para reunir el desarrollo en el controlador NES
 
 ### Master y slave 
 En este caso, master es el módulo de la FPGA o el SoC encargado de controlar el NES
@@ -7,11 +6,13 @@ Slave es el mando físico del NES
 ## Protocolo de Comunicación del NES
 Aproximadamente cada 16ms (al manejar 60Hz) se repite lo siguiente: 
 
+![Protocolo Comunicaciones](img/protocolo_comunicaciones.png)
 
 Latch es un pulso enviado por master que 'congela' el estado del 4021N interno en el mando físico de la NES. En el momento donde este pulso baja, automáticamente la línea Data revela el valor del primer bit, correspondiente al estado del botón 'A'. Posteriormente, se envia una secuencia de 7 pulsos para relevar los valores correspondientes a los demás botones. 
 
 Sin embargo, el módulo maneja lógica 'inversa': Cuando está oprimido un botón, se obtiene '0' como valor, y cuando no está oprimido, se obtiene '1'. Por lo que cuando la línea Data llega a la FPGA, se le aplica una compuerta NOT. Por ejemplo, si en un ciclo se tiene start presionado: 
 
+![Ejemplo Protocolo](img/protocolo_coms_ej.png)
 
 ### Especificaciones del Protocolo de Comunicaciones 
 * El protocolo opera mediante comunicación en serie y síncrona unidireccional
@@ -40,3 +41,6 @@ Sin embargo, el módulo maneja lógica 'inversa': Cuando está oprimido un botó
 | `0x450004` | `0x04` | `NES_CTRL_REG` | Lectura / Escritura | Control de habilitación del polling automático y disparo manual. |
 | `0x450008` | `0x08` | `NES_STATUS_REG` | Lectura | Estado del módulo (1 = Lectura completada, 0 = Bus ocupado). |
 | `0x45000C` | `0x0C` | `NES_CLKDIV_REG` | Lectura / Escritura | Divisor de reloj para ajustar los pulsos de CLOCK y LATCH. |
+
+##Funcionamiento Interno del NES
+![Diagrama de Flujo](<img/Diagrama de Flujo-Controlador NES.drawio(1).png>)
