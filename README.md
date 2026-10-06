@@ -3,6 +3,9 @@
 ### Master y slave 
 En este caso, master es el módulo de la FPGA o el SoC encargado de controlar el NES
 Slave es el mando físico del NES 
+### Funcionamiento Interno del NES 
+![Mapa NES](img/4021N.png)
+
 ## Protocolo de Comunicación del NES
 Aproximadamente cada 16ms (al manejar 60Hz) se repite lo siguiente: 
 
